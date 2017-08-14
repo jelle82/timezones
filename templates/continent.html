@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ countries[0].continent_name }} {% endblock %}
+
+     {% block container %}
+
+      <div class="starter-template">
+        <h1>Landen in {{ countries[0].continent_name }}</h1>
+        <p class="lead">
+
+	{% for country in countries %}
+		<li><a href="{{country.country_id|lower}}">{{ country.country }}</a></li>
+	{% endfor %}	
+
+	</p>
+      </div>
+	{% endblock %}
