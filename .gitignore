@@ -1,6 +1,7 @@
 *.db
 data/
 firstflaskapp_env/
+timezones_env/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
