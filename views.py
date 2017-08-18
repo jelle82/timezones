@@ -1,6 +1,7 @@
 from flask import render_template, send_from_directory
 from app import app, db
 from models import Country, City
+from datetime import datetime, timedelta
 
 @app.route('/')
 def index():
@@ -30,11 +31,12 @@ def country(continent_id,country_id):
 def city(continent_id,country_id,city_id):
     city = db.session.query(City).filter(City.name_id==city_id).first()
     country = city.in_country
+    timezone = city.in_timezone
     poptext = population_text(city.name, city.population)
-    feat_cities = get_featured_cities()
+    city_tzs = get_featured_cities()
     #print(feat_cities)
 
-    return render_template('city.html', city=city, country=country, poptext=poptext, feat_cities=feat_cities)
+    return render_template('city.html', city=city, country=country, timezone=timezone, poptext=poptext, city_tzs=city_tzs)
 
 def population_text(city_name, population):
 	population = "{:,}".format(population).replace(',','.')
@@ -47,4 +49,13 @@ def population_text(city_name, population):
 
 def get_featured_cities():
     cities = db.session.query(City).filter(((City.name_id=='paris')&(City.country_code=='FR'))|((City.name_id=='london')&(City.country_code=='GB'))|((City.name_id=='sydney')&(City.country_code=='AU'))|((City.name_id=='new-york-city')&(City.country_code=='US'))|((City.name_id=='buenos-aires')&(City.country_code=='AR'))).all()
-    return cities
+
+    timezones = [ city.in_timezone for city in cities ]
+
+    city_tzs = zip(cities, timezones)
+
+    return city_tzs
+
+@app.template_filter('local_time')
+def local_time_filter(offset):
+    return (datetime.utcnow() + timedelta(hours=offset)).strftime('%X')

@@ -3,7 +3,7 @@ from app import db
 class Country(db.Model):
     __tablename__ = 'countries'
     #__table_args__ = {'extend_existing': True}
-        
+
     iso = db.Column('countrycode',db.String, primary_key=True)
     geonameid = db.Column('geonameid',db.Integer)
     country = db.Column('countryname',db.String )
@@ -19,7 +19,7 @@ class Country(db.Model):
 
     cities = db.relationship('City', backref='in_country')
     timezones = db.relationship('Timezone', backref='in_country')
-    
+
     def __repr__(self):
         return "<Country(name='%s', id='%s')>" % (self.country, self.geonameid)
 
@@ -29,8 +29,8 @@ class Country(db.Model):
 class City(db.Model):
     __tablename__ = 'cities'
     #__table_args__ = {'extend_existing': True}
-    
-    
+
+
     geonameid = db.Column('geonameid',db.Integer, primary_key=True)
     population = db.Column('population',db.Integer)
     name = db.Column('name',db.String)
@@ -42,7 +42,7 @@ class City(db.Model):
     latitude = db.Column('latitude',db.Float)
     longitude = db.Column('longitude',db.Float)
     elevation = db.Column('elevation',db.Float)
-    
+
     def __repr__(self):
         return "<City(name='%s', id='%s')>" % (self.name, self.geonameid)
 
@@ -52,15 +52,14 @@ class City(db.Model):
 class Timezone(db.Model):
     __tablename__ = 'timezones'
     #__table_args__ = {'extend_existing': True}
-    
-    
+
+
     country_code = db.Column('country_code', db.String, db.ForeignKey('countries.countrycode'))
     timezone = db.Column('timezone', db.String, primary_key=True)
     cities = db.relationship("City", backref='in_timezone')
     gmt_offset = db.Column('gmt_offset', db.Float)
-    
-                      
-    #'gmt_offset',  'dst_offset', 'raw_offset'
-    
+    dst_offset = db.Column('dst_offset', db.Float)
+    raw_offset = db.Column('raw_offset', db.Float)
+
     def __repr__(self):
         return "<Timezone(timezone='%s', country_code='%s')>" % (self.timezone, self.country_code)
