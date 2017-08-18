@@ -4,15 +4,95 @@
 
      {% block container %}
 
-      <div class="starter-template">
-        <h1>{{city.name}}</h1>
-        <h2>{{country.country}}</h2>
-        <p class="lead">
+     <div class="row">
+       <div class="col">
+         <div class="card">
+           <div class="card-header">
+             Featured
+           </div>
+           <div class="card-block">
+             <h4 class="card-title">Special title treatment</h4>
+             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+             <a href="#" class="btn btn-primary">Go somewhere</a>
+           </div>
+         </div>
+       </div>
+       <div class="col">
+         <div class="card">
+           <div class="card-header">
+             Featured
+           </div>
+           <div class="card-block">
+             <h4 class="card-title">Special title treatment</h4>
+             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+             <a href="#" class="btn btn-primary">Go somewhere</a>
+           </div>
+         </div>
+       </div>
+       <div class="col">
+         <div class="card">
+           <div class="card-header">
+             Featured
+           </div>
+           <div class="card-block">
+             <h4 class="card-title">Special title treatment</h4>
+             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+             <a href="#" class="btn btn-primary">Go somewhere</a>
+           </div>
+         </div>
+       </div>
+     </div>
 
-		{{poptext}}
+
+     <div class="row mt-5">
+       <div class="col">
+         <h1>{{city.name}}</h1>
+         <h2>{{country.country}}</h2>
+       </div>
+     </div>
+
+     <div class="row mt-2">
+       <div class="col">
+         <div class="card">
+           <div class="card-header">
+             Lokale tijd
+           </div>
+           <div class="card-block">
+             <h4 class="card-title display-4">5:36:36</h4>
+           </div>
+         </div>
+       </div>
+       <div class="col">
+         <div class="card">
+           <div class="card-header">
+             Tijdsverschil
+           </div>
+           <div class="card-block">
+             <h4 class="card-title display-4">Special title treatment</h4>
+           </div>
+         </div>
+       </div>
+       <div class="col">
+         <div class="card">
+           <div class="card-header">
+             GMT en UTC
+           </div>
+           <div class="card-block">
+             <h4 class="card-title">Special title treatment</h4>
+             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+           </div>
+         </div>
+       </div>
+     </div>
 
 
+     <div class="row mt-5">
+       <div class="col">
+         <p class="lead">
+           {{poptext}}
+         </p>
+       </div>
+     </div>
 
-	</p>
-      </div>
+
 	{% endblock %}
