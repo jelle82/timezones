@@ -3,15 +3,16 @@
 {% block title %} {{ country.country }} {{ country.continent_name }} {% endblock %}
 
      {% block container %}
-
       	<div class="row">
-        	<h1>{{ country.country }} <span class="text-muted">{{ country.continent_name }}</span> </h1>
-	</div>
+          <div class="col">
+          <h1>{{ country.country }}</h1>
+          <h2 class="text-muted">{{ country.continent_name }}</h2>
+	       </div></div>
 	<div class="row">
 	<div class="col">
 <h2>Tijdzones</h2>
         <p class="lead">
-	
+
 	{% for tz in timezones %}
 		<li>{{ tz.timezone }}: GMT: {{ tz.gmt_offset }}</li>
 	{% endfor %}
@@ -23,7 +24,7 @@
 
 	{% for city in cities|sort(attribute='population',reverse=True) %}
 		<li><a href="{{city.name_id}}">{{ city.name }}</a></li>
-	{% endfor %}	
+	{% endfor %}
 
 	</p>
 	</div>
