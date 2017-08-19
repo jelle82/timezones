@@ -16,11 +16,61 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 
 
+  {% if timezone and timezone.dst_offset %}
+      <script type="text/javascript">
+
+      function clockS(){
+
+      	function addZero(i) {
+      		if (i < 10) {
+      			i = "0" + i;
+      		}
+      		return i;
+      	}
+
+      var d = new Date();
+      var x = document.getElementById("clock");
+      var h = addZero(d.getUTCHours()+{{timezone.dst_offset}});
+      var m = addZero(d.getUTCMinutes());
+      var s = addZero(d.getUTCSeconds());
+      x.innerHTML = h + ":" + m + ":" + s;
+
+      var t = setTimeout(function(){ clockS() }, 1000);
+      }
+
+      window.onload=clockS;
+      </script>
+    {% endif %}
+
+
+    <script type="text/javascript">
+
+    function clockjelle(id, offset){
+
+      function addZero(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+
+    var d = new Date();
+    var x = document.getElementById(id);
+
+    var h = addZero((d.getUTCHours()+offset) % 24);
+    var m = addZero(d.getUTCMinutes());
+    var s = addZero(d.getUTCSeconds());
+    x.innerHTML = h + ":" + m + ":" + s;
+    var t = setTimeout(function(){ clockjelle(id, offset) }, 1000);
+
+    }
+
+    </script>
 
 
   </head>
 
-      <script type="text/javascript"  src="{{ url_for('static', filename='js/clock.js') }}"></script>
+
 
   <body>
 

@@ -6,16 +6,18 @@
 
 
      <div class="row">
+
        {% for feat_city in city_tzs %}
        <div class="col">
          <div class="card">
+
            <div class="card-header">
              {{feat_city[0].name}}
            </div>
            <div class="card-block">
              <h4 class="card-title">{{feat_city[0].name}}</h4>
-             <h5 class="card-title">{{(feat_city[0].country_code)}}</h5>
-             <p class="card-text">{{ feat_city[1].dst_offset|local_time }}</p>
+             <h5 class="card-text" id="{{feat_city[0].name_id}}">bla</h5>
+             <script>clockjelle('{{feat_city[0].name_id}}',{{feat_city[1].dst_offset}})</script>
            </div>
          </div>
        </div>
@@ -37,7 +39,7 @@
              Lokale tijd
            </div>
            <div class="card-block">
-             <h4 class="card-title display-4">{{timezone.dst_offset|local_time}} or <span id="clock"></span></h4>
+             <h4 class="card-title display-4"><span id="clock"></span></h4>
            </div>
          </div>
        </div>
