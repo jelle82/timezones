@@ -22,9 +22,10 @@
              {{feat_city[0].name}}
            </div>
            <div class="card-block">
-             <h4 class="card-title">{{feat_city[0].name}}</h4>
-             <h5 class="card-text" id="{{feat_city[0].name_id}}">bla</h5>
+             <h5 class="card-title">{{feat_city[0].name}}</h5>
+             <h5 class="card-text" id="{{feat_city[0].name_id}}">clock</h5>
              <script>clockjelle('{{feat_city[0].name_id}}',{{feat_city[1].dst_offset}})</script>
+	<a href="/{{feat_city[2].continent_id}}/{{feat_city[2].country_id}}/{{feat_city[0].name_id}}" class="btn btn-primary">Meer info</a>
            </div>
          </div>
        </div>
@@ -47,6 +48,7 @@
            </div>
            <div class="card-block">
              <h4 class="card-title display-4"><span id="clock"></span></h4>
+<script>clockjelle('clock',{{timezone.dst_offset}})</script>
            </div>
          </div>
        </div>

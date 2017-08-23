@@ -54,8 +54,9 @@ def get_featured_cities():
     cities = db.session.query(City).filter(((City.name_id=='paris')&(City.country_code=='FR'))|((City.name_id=='london')&(City.country_code=='GB'))|((City.name_id=='sydney')&(City.country_code=='AU'))|((City.name_id=='new-york-city')&(City.country_code=='US'))|((City.name_id=='buenos-aires')&(City.country_code=='AR'))).all()
 
     timezones = [ city.in_timezone for city in cities ]
+    countries = [ city.in_country for city in cities ]
 
-    city_tzs = zip(cities, timezones)
+    city_tzs = zip(cities, timezones, countries)
 
     return city_tzs
 
