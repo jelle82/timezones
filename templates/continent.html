@@ -2,6 +2,11 @@
 
 {% block title %} {{ countries[0].continent_name }} {% endblock %}
 
+{% block breadcrumbs %}
+<li class="breadcrumb-item active">{{countries[0].continent_name}}</li>
+
+ {% endblock %}
+
      {% block container %}
 
       <div class="starter-template">

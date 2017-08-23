@@ -2,6 +2,13 @@
 
 {% block title %} {{city.name}} - {{ country.country }} - {{ country.continent }} {% endblock %}
 
+{% block breadcrumbs %}
+<li class="breadcrumb-item"><a href="/{{ country.continent_id }}">{{country.continent_name}}</a></li>
+<li class="breadcrumb-item"><a href="/{{ country.continent_id }}/{{ country.country_id }}">{{ country.country }} </a></li>
+<li class="breadcrumb-item active">{{ city.name }}</li>
+
+ {% endblock %}
+
      {% block container %}
 
 
@@ -46,21 +53,27 @@
        <div class="col">
          <div class="card">
            <div class="card-header">
-             Tijdsverschil
+             Tijdsverschil met Nederland
            </div>
            <div class="card-block">
-             <h4 class="card-title display-4">Special title treatment</h4>
+             <h4 class="card-title display-4">{{timezone.dst_offset|diff_offset|offsets}}</h4>
            </div>
          </div>
        </div>
        <div class="col">
          <div class="card">
            <div class="card-header">
-             GMT en UTC
+             Tijdverschil algemeen
            </div>
            <div class="card-block">
-             <h4 class="card-title">GMT</h4>
-             <p class="card-text">{{timezone.gmt_offset}}, {{timezone.dst_offset}}, {{timezone.raw_offset}}</p>
+             <h4 class="card-title">GMT, Daylight saving, UTC</h4>
+             <p class="card-text">
+              <ul>
+              <li>GMT: {{timezone.gmt_offset|offsets}}</li>
+              <li>DST: {{timezone.dst_offset|offsets}}</li>
+              <li>UTC: {{timezone.raw_offset|offsets}}</li>
+              </ul>
+            </p>
            </div>
          </div>
        </div>
@@ -71,6 +84,19 @@
        <div class="col">
          <p class="lead">
            {{poptext}}
+         </p>
+       </div>
+     </div>
+
+      <div class="row mt-5">
+       <div class="col">
+<h3>Alternatieve namen voor {{city.name}}</h3>
+       <p class="lead">
+       <ul class="row">
+      {% for altname in altnames %}
+           <li class="col-sm-4">{{altname}}</li>
+          {% endfor %}
+          </ul>
          </p>
        </div>
      </div>

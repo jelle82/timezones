@@ -1,6 +1,6 @@
 from flask import render_template, send_from_directory
 from app import app, db
-from models import Country, City
+from models import Country, City, Timezone
 from datetime import datetime, timedelta
 
 @app.route('/')
@@ -34,9 +34,12 @@ def city(continent_id,country_id,city_id):
     timezone = city.in_timezone
     poptext = population_text(city.name, city.population)
     city_tzs = get_featured_cities()
+
+    altnames = city.alternatenames.split(',')
+
     #print(feat_cities)
 
-    return render_template('city.html', city=city, country=country, timezone=timezone, poptext=poptext, city_tzs=city_tzs)
+    return render_template('city.html', city=city, country=country, timezone=timezone, poptext=poptext, city_tzs=city_tzs, altnames=altnames)
 
 def population_text(city_name, population):
 	population = "{:,}".format(population).replace(',','.')
@@ -59,3 +62,17 @@ def get_featured_cities():
 @app.template_filter('local_time')
 def local_time_filter(offset):
     return (datetime.utcnow() + timedelta(hours=offset)).strftime('%X')
+
+@app.template_filter('offsets')
+def format_offset(fl_num):
+    if fl_num.is_integer():
+        if fl_num > 0:
+            return '+' + str(int(fl_num)) + ' uur'
+        else:
+            return str(int(fl_num)) + ' uur'
+    return str(fl_num) + ' uur'
+
+@app.template_filter('diff_offset')
+def diff_offset(fl_num, cc='NL'):
+    tz = db.session.query(Timezone).filter(Timezone.country_code==cc).first()
+    return fl_num - tz.dst_offset
