@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %} {{ countries[0].continent_name }} {% endblock %}
+{% block title %} {{ continent_name }} {% endblock %}
 
 {% block breadcrumbs %}
-<li class="breadcrumb-item active">{{countries[0].continent_name}}</li>
+<li class="breadcrumb-item active">{{continent_name}}</li>
 
  {% endblock %}
 
      {% block container %}
 
       <div class="starter-template">
-        <h1>Landen in {{ countries[0].continent_name }}</h1>
+        <h1>Landen in {{ continent_name }}</h1>
         <p class="lead">
 
 	{% for country in countries %}

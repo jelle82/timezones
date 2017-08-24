@@ -14,9 +14,11 @@ def index():
 
 @app.route('/<continent_id>/')
 def continent(continent_id):
-	countries = db.session.query(Country).filter(Country.continent_id==continent_id).all()
+    countries = db.session.query(Country).filter(Country.continent_id==continent_id).all()
 
-	return render_template('continent.html', countries=countries, continent_id=continent_id)
+    continent_name = countries[0].continent_name
+
+    return render_template('continent.html', countries=countries, continent_id=continent_id, continent_name=continent_name)
 
 @app.route('/<continent_id>/<country_id>/')
 def country(continent_id,country_id):
@@ -69,10 +71,16 @@ def local_time_filter(offset):
 def format_offset(fl_num):
     if fl_num.is_integer():
         if fl_num > 0:
-            return '+' + str(int(fl_num)) + ' uur'
+            return '+' +  str(int(fl_num)) + ' uur'
         else:
             return str(int(fl_num)) + ' uur'
-    return str(fl_num) + ' uur'
+    
+    if fl_num > 0:
+        return '+' +  str(fl_num).replace('.',',') + ' uur'
+    else:
+        return str(fl_num).replace('.',',') + ' uur'
+
+    return '?? uur'
 
 @app.template_filter('diff_offset')
 def diff_offset(fl_num, cc='NL'):
