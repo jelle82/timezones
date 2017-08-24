@@ -85,7 +85,9 @@
      <div class="row mt-5">
        <div class="col">
          <p class="lead">
-           {{poptext}}
+         {% for text in texts %}
+           {{text}}
+         {% endfor %}
          </p>
        </div>
      </div>

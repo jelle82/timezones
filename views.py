@@ -32,23 +32,24 @@ def city(continent_id,country_id,city_id):
     city = db.session.query(City).filter(City.name_id==city_id).first()
     country = city.in_country
     timezone = city.in_timezone
-    poptext = population_text(city.name, city.population)
+    texts = city_text(city.name, city.population, city.timezone)
     city_tzs = get_featured_cities()
 
     altnames = city.alternatenames.split(',')
 
     #print(feat_cities)
 
-    return render_template('city.html', city=city, country=country, timezone=timezone, poptext=poptext, city_tzs=city_tzs, altnames=altnames)
+    return render_template('city.html', city=city, country=country, timezone=timezone, texts=texts, city_tzs=city_tzs, altnames=altnames)
 
-def population_text(city_name, population):
-	population = "{:,}".format(population).replace(',','.')
+def city_text(city_name, population, timezone):
+    population = "{:,}".format(population).replace(',','.')
 
-	texts = ['Het aantal inwoners van '+city_name+ ' bedraagt ' + population + '.',
-'Met ' + population + ' inwoners is ' + city_name + ' een behoorlijke plaats.', city_name + ' heeft ' + population + ' inwoners.']
+    poptxt = ['Het aantal inwoners van '+city_name+ ' bedraagt ' + population + '.','Er wonen en leven ' + population + ' mensen in ' + city_name + '.', city_name + ' heeft ' + population + ' inwoners.', ]
+    tztext = ['De tijdzone bepaalt de tijd in '+city_name+'. De tijdzone heet '+timezone+'.','De tijdzone van '+city_name+' is '+timezone+'. Deze zone is bepalend voor de tijd in de plaats.', ]
 
-	rndnum = len(city_name) % len(texts)
-	return texts[rndnum]
+    poprnd = len(city_name) % len(poptxt)
+    tzrnd = len(timezone) % len(tztext)
+    return [poptxt[poprnd], tztext[tzrnd]]
 
 def get_featured_cities():
     cities = db.session.query(City).filter(((City.name_id=='paris')&(City.country_code=='FR'))|((City.name_id=='london')&(City.country_code=='GB'))|((City.name_id=='sydney')&(City.country_code=='AU'))|((City.name_id=='new-york-city')&(City.country_code=='US'))|((City.name_id=='buenos-aires')&(City.country_code=='AR'))).all()
